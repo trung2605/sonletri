@@ -181,3 +181,15 @@ export const meta = {
   period: "Tháng 1 - Tháng 5 năm 2026",
   department: "Phòng Kế hoạch Kinh doanh Tài chính Kế toán",
 };
+
+export const director = {
+  name: "Lê Trí Sơn",
+  title: "Giám đốc AHTS",
+  subtitle: "Kiêm nhiệm Trưởng phòng Điều hành AHT",
+  since: "01/07/2026",
+  joined: 2019,
+  experienceYears: 30,
+  bio: "Với gần 30 năm kinh nghiệm trong lĩnh vực hàng không và quản lý khai thác, Anh Lê Trí Sơn đã có nhiều đóng góp quan trọng cho ngành hàng không cũng như cho sự phát triển của AHT kể từ khi gia nhập Công ty vào năm 2019.",
+  vision:
+    "Trên cương vị mới, Ban Điều hành tin tưởng Anh Lê Trí Sơn sẽ tiếp tục phát huy năng lực, kinh nghiệm và bản lĩnh lãnh đạo, cùng tập thể AHTS xây dựng và phát triển hệ sinh thái dịch vụ của AHT ngày càng chuyên nghiệp, hiệu quả; hoàn thành xuất sắc các mục tiêu được giao và đóng góp tích cực vào sự phát triển bền vững của Công ty.",
+};
