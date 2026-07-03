@@ -53,17 +53,13 @@ export default function SlideShell({
         }`}
       />
 
-      <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+      <div
         className={`relative z-10 flex-1 flex flex-col px-5 sm:px-8 md:px-14 lg:px-20 py-10 md:py-14 ${
           dark || bgImage ? "text-white" : ""
         }`}
       >
         {children}
-      </motion.div>
+      </div>
     </section>
   );
 }
