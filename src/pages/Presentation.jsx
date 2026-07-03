@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ChevronUp, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowLeft, ChevronUp, ChevronDown, Menu, X } from "lucide-react";
 import Slide01Cover from "../components/slides/Slide01Cover.jsx";
 import Slide02Agenda from "../components/slides/Slide02Agenda.jsx";
 import Slide03Overview from "../components/slides/Slide03Overview.jsx";
@@ -38,9 +39,28 @@ const slides = [
 // Ánh xạ 7 mục agenda -> slide bắt đầu tương ứng (theo thứ tự agenda trong report.js)
 const agendaTargets = [2, 3, 4, 6, 8, 10, 12];
 
+const slideTitles = [
+  "Trang bìa",
+  "Nội dung báo cáo",
+  "Tổng quan kết quả kinh doanh",
+  "So sánh cùng kỳ 2025",
+  "Cơ cấu doanh thu",
+  "Phân tích chuyên sâu CIP & Mặt bằng",
+  "Diễn biến theo tháng",
+  "Truy nguyên nhân điểm trũng T4",
+  "Cơ cấu chi phí",
+  "Chi tiết 3 khoản chi lớn nhất",
+  "Điểm nghẽn cần lưu ý (1/2)",
+  "Điểm nghẽn & ma trận rủi ro (2/2)",
+  "Lộ trình hành động",
+  "Bảng điều khiển KPI",
+  "Cảm ơn",
+];
+
 export default function Presentation() {
   const containerRef = useRef(null);
   const [active, setActive] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -65,6 +85,7 @@ export default function Presentation() {
     const container = containerRef.current;
     const sections = container?.querySelectorAll("section");
     sections?.[i]?.scrollIntoView({ behavior: "smooth" });
+    setMenuOpen(false);
   }, []);
 
   const handleJump = useCallback(
@@ -82,18 +103,63 @@ export default function Presentation() {
         Trang chủ
       </Link>
 
-      <div className="fixed top-1/2 right-5 -translate-y-1/2 z-50 flex flex-col gap-1.5">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => scrollToIndex(i)}
-            aria-label={`Đến slide ${i + 1}`}
-            className={`w-2 h-2 rounded-full transition-all ${
-              active === i ? "bg-brand-600 scale-150" : "bg-brand-200 hover:bg-brand-400"
-            }`}
-          />
-        ))}
+      <div className="fixed top-5 right-5 z-50 flex items-center gap-2">
+        <div className="px-3 py-1.5 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md text-brand-700 text-xs font-semibold">
+          {active + 1} / {slides.length}
+        </div>
+        <button
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label="Danh sách slide"
+          className="w-11 h-11 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md flex items-center justify-center text-brand-700 hover:bg-brand-50 transition"
+        >
+          {menuOpen ? <X size={20} /> : <Menu size={20} />}
+        </button>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMenuOpen(false)}
+              className="fixed inset-0 z-40 bg-brand-950/40 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", stiffness: 320, damping: 34 }}
+              className="fixed top-0 right-0 bottom-0 z-40 w-80 max-w-[85vw] bg-white shadow-2xl overflow-y-auto pt-20 pb-6"
+            >
+              <p className="px-5 pb-3 text-xs font-semibold text-slate-400 uppercase tracking-wide">
+                Danh sách slide
+              </p>
+              <div className="px-3 space-y-1">
+                {slideTitles.map((title, i) => (
+                  <button
+                    key={i}
+                    onClick={() => scrollToIndex(i)}
+                    className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
+                      active === i ? "bg-brand-50 text-brand-700" : "text-slate-600 hover:bg-slate-50"
+                    }`}
+                  >
+                    <span
+                      className={`flex-shrink-0 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
+                        active === i ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-500"
+                      }`}
+                    >
+                      {i + 1}
+                    </span>
+                    <span className="text-sm font-medium">{title}</span>
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-2">
         <button
@@ -112,10 +178,6 @@ export default function Presentation() {
         >
           <ChevronDown size={18} />
         </button>
-      </div>
-
-      <div className="fixed top-5 right-5 z-50 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md text-brand-700 text-xs font-semibold">
-        {active + 1} / {slides.length}
       </div>
 
       <div

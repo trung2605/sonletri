@@ -6,6 +6,13 @@ import { agenda } from "../../data/report.js";
 export default function Slide02Agenda({ index, total, onJump }) {
   return (
     <SlideShell index={index} total={total}>
+      <motion.div
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        style={{ transformOrigin: "top" }}
+        className="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-brand-600 via-brand-500 to-brand-300"
+      />
       <motion.h2
         initial={{ opacity: 0, x: -30 }}
         whileInView={{ opacity: 1, x: 0 }}
