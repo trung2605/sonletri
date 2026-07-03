@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { revenueBySegment } from "../../data/report.js";
-import photo from "../../assets/photos/business-lounge-1.jpg";
+import photo from "../../assets/photos/business-lounge-1.webp";
 
 export default function Slide03RevenueMix({ index, total }) {
   const [active, setActive] = useState(null);

@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { monthlyTrend, costDetail } from "../../data/report.js";
-import photo from "../../assets/photos/Screen Shot 2567-11-04 at 15.24.36 1.png";
+import photo from "../../assets/photos/Screen Shot 2567-11-04 at 15.24.36 1.webp";
 
 const merged = monthlyTrend.map((m, i) => ({
   month: m.month,

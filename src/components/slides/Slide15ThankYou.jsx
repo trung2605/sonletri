@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import SlideShell from "../ui/SlideShell.jsx";
 import { meta } from "../../data/report.js";
-import photo from "../../assets/photos/airport-terminal-1.jpg";
+import photo from "../../assets/photos/airport-terminal-1.webp";
 
 const particles = Array.from({ length: 14 });
 

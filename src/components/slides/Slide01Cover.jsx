@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import SlideShell from "../ui/SlideShell.jsx";
 import { meta } from "../../data/report.js";
-import cover from "../../assets/photos/airport-terminal-1.jpg";
-import logo from "../../assets/photos/logo.jpg";
+import cover from "../../assets/photos/airport-terminal-1.webp";
+import logo from "../../assets/photos/logo.webp";
 
 export default function Slide01Cover({ index, total }) {
   return (

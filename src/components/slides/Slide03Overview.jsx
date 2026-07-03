@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import SlideShell from "../ui/SlideShell.jsx";
 import StatCard from "../ui/StatCard.jsx";
 import { overview } from "../../data/report.js";
-import photo from "../../assets/photos/airport-window-1.jpg";
+import photo from "../../assets/photos/airport-window-1.webp";
 
 export default function Slide02Overview({ index, total }) {
   return (

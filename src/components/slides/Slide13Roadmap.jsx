@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Target, ChevronRight } from "lucide-react";
 import SlideShell from "../ui/SlideShell.jsx";
 import { roadmap } from "../../data/report.js";
-import photo from "../../assets/photos/Copy of 0L3A0544.jfif";
+import photo from "../../assets/photos/Copy of 0L3A0544.webp";
 
 const BLUE = "#1d4ed8";
 

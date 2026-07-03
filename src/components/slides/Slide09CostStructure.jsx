@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, LabelList } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { costStructure } from "../../data/report.js";
-import photo from "../../assets/photos/airport-hall-1.jpg";
+import photo from "../../assets/photos/airport-hall-1.webp";
 
 const colors = ["#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#bfdbfe", "#dbeafe"];
 

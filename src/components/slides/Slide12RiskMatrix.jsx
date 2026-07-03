@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { bottlenecks, riskMatrix } from "../../data/report.js";
-import photo from "../../assets/photos/Copy of DSC09840.jfif";
+import photo from "../../assets/photos/Copy of DSC09840.webp";
 
 const riskColor = (impact, likelihood) => {
   const score = impact * likelihood;

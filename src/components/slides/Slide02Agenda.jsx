@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import SlideShell from "../ui/SlideShell.jsx";
 import { agenda } from "../../data/report.js";
-import photo from "../../assets/photos/_DHP5494 copy.jpg";
+import photo from "../../assets/photos/_DHP5494 copy.webp";
 
 export default function Slide02Agenda({ index, total, onJump }) {
   return (

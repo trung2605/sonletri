@@ -13,7 +13,7 @@ import {
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { monthlyTrend } from "../../data/report.js";
-import photo from "../../assets/photos/airport-runway-1.jpg";
+import photo from "../../assets/photos/airport-runway-1.webp";
 
 const series = [
   { key: "revenue", label: "Doanh thu", color: "#1d4ed8", labelPos: "top" },

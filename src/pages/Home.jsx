@@ -2,11 +2,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight, BarChart3, Building2, TrendingUp, Briefcase, Award, CalendarClock } from "lucide-react";
 import { meta, director } from "../data/report.js";
-import heroPhoto from "../assets/photos/airport-terminal-1.jpg";
-import lounge from "../assets/photos/business-lounge-1.jpg";
-import hall from "../assets/photos/airport-hall-1.jpg";
-import directorPhoto from "../assets/photos/le-tri-son-portrait.jpg";
-import logo from "../assets/photos/logo.jpg";
+import heroPhoto from "../assets/photos/airport-terminal-1.webp";
+import lounge from "../assets/photos/business-lounge-1.webp";
+import hall from "../assets/photos/airport-hall-1.webp";
+import directorPhoto from "../assets/photos/le-tri-son-portrait.webp";
+import logo from "../assets/photos/logo.webp";
 import Tilt3DCard from "../components/ui/Tilt3DCard.jsx";
 
 export default function Home() {

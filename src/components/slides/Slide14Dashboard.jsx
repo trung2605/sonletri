@@ -14,7 +14,7 @@ import {
 import { AlertTriangle, TrendingUp, Minus, Target } from "lucide-react";
 import SlideShell from "../ui/SlideShell.jsx";
 import { kpiDashboard, kpiDetailTable, monthlyTrend } from "../../data/report.js";
-import loungePhoto from "../../assets/photos/business-lounge-1.jpg";
+import loungePhoto from "../../assets/photos/business-lounge-1.webp";
 
 // ── helpers ──
 const STATUS = {

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { LineChart, Line, ResponsiveContainer, YAxis } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { revenueDetail } from "../../data/report.js";
-import photo from "../../assets/photos/airport-window-1.jpg";
+import photo from "../../assets/photos/airport-window-1.webp";
 
 const months = ["T1", "T2", "T3", "T4", "T5"];
 

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { yoyComparison } from "../../data/report.js";
-import photo from "../../assets/photos/airport-plane-1.jpg";
+import photo from "../../assets/photos/airport-plane-1.webp";
 
 export default function Slide04YoY({ index, total }) {
   const [mode, setMode] = useState("plan");

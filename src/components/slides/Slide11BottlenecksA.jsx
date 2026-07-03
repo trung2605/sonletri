@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AlertTriangle, FileSearch, ChevronDown } from "lucide-react";
 import SlideShell from "../ui/SlideShell.jsx";
 import { bottlenecks } from "../../data/report.js";
-import photo from "../../assets/photos/airport-lounge-1.jpg";
+import photo from "../../assets/photos/airport-lounge-1.webp";
 
 export default function Slide11BottlenecksA({ index, total }) {
   const items = bottlenecks.slice(0, 3);

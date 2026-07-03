@@ -12,7 +12,7 @@ import {
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { costDetail } from "../../data/report.js";
-import photo from "../../assets/photos/_DHP5591.jpg";
+import photo from "../../assets/photos/_DHP5591.webp";
 
 export default function Slide10CostDetail({ index, total }) {
   return (
