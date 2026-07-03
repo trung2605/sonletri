@@ -9,15 +9,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { monthlyTrend } from "../../data/report.js";
 import photo from "../../assets/photos/airport-runway-1.jpg";
 
 const series = [
-  { key: "revenue", label: "Doanh thu", color: "#1d4ed8" },
-  { key: "cost", label: "Chi phí", color: "#f97316" },
-  { key: "profit", label: "Lợi nhuận trước thuế", color: "#22c55e" },
+  { key: "revenue", label: "Doanh thu", color: "#1d4ed8", labelPos: "top" },
+  { key: "cost", label: "Chi phí", color: "#f97316", labelPos: "bottom" },
+  { key: "profit", label: "Lợi nhuận trước thuế", color: "#22c55e", labelPos: "top" },
 ];
 
 export default function Slide04Trend({ index, total }) {
@@ -84,7 +85,15 @@ export default function Slide04Trend({ index, total }) {
                     dot={{ r: 5 }}
                     activeDot={{ r: 7 }}
                     animationDuration={900}
-                  />
+                  >
+                    <LabelList
+                      dataKey={s.key}
+                      position={s.labelPos}
+                      offset={10}
+                      formatter={(v) => v}
+                      style={{ fill: s.color, fontSize: 12, fontWeight: 600 }}
+                    />
+                  </Line>
                 ))}
             </LineChart>
           </ResponsiveContainer>

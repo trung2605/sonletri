@@ -41,26 +41,52 @@ export const bottlenecks = [
     title: "Doanh thu tài chính đạt thấp",
     detail:
       "Lãi tiền gửi, lãi cho vay 5 tháng chỉ đạt 13.7% kế hoạch năm, thấp hơn nhiều so với mốc kỳ vọng theo tiến độ thời gian (41.7%).",
+    evidence: [
+      "Lãi tiền gửi 5T2026: 1.15 tỷ / KH năm 9.38 tỷ (12.2%) — sheet KQKD 2026, dòng \"Lãi tiền gửi\"",
+      "Lãi cho vay, chênh lệch tỷ giá 5T2026: 0.49 tỷ / KH năm 1.53 tỷ (32.0%)",
+      "Tổng doanh thu tài chính 5T2026: 1.64 tỷ / KH năm 11.91 tỷ = 13.7%",
+      "Riêng T3 lãi tiền gửi chỉ 78.7 triệu, T5 chỉ còn 1.06 triệu — sụt giảm mạnh liên tiếp",
+    ],
   },
   {
     title: "Chi phí văn phòng tăng vọt",
     detail:
       "Chi phí đảm bảo hoạt động văn phòng mới đạt 18.6% kế hoạch năm nhưng riêng tháng 5 tăng gấp 3 lần so với tháng 1.",
+    evidence: [
+      "T1: 66.8 triệu → T5: 230.8 triệu (gấp 3.45 lần) — sheet KQKD 2026, dòng \"Đảm bảo hoạt động văn phòng\"",
+      "Lũy kế 5 tháng: 623.1 triệu / KH năm 3.34 tỷ = 18.6%, thấp hơn tiến độ thời gian kỳ vọng",
+      "Xu hướng tăng dần đều qua từng tháng (T1→T5: 66.8 → 51.1 → 93.2 → 181.3 → 230.8 triệu)",
+    ],
   },
   {
     title: "Rủi ro tập trung doanh thu",
     detail:
       "Cơ cấu doanh thu phụ thuộc lớn vào 2 mảng CIP và mặt bằng kinh doanh, chiếm tới 97% tổng doanh thu.",
+    evidence: [
+      "CIP: 69.3 tỷ (43.7%) + Mặt bằng kinh doanh: 84.5 tỷ (53.3%) = 153.8/158.7 tỷ = 97.0%",
+      "3 mảng còn lại (nhà hàng, sleep pods, khác) cộng lại chỉ 4.9 tỷ (3.0%)",
+      "Không có mảng nào khác đạt trên 3% tỷ trọng để san sẻ rủi ro nếu CIP/MB biến động",
+    ],
   },
   {
     title: "Đào tạo tuyển dụng chậm",
     detail:
       "Ngân sách đào tạo, tuyển dụng mới giải ngân 2.7% kế hoạch năm — chậm so với tiến độ.",
+    evidence: [
+      "Lũy kế 5T2026: 35.0 triệu / KH năm 1.30 tỷ = 2.7% — sheet KQKD 2026, dòng \"Đào tạo, tuyển dụng\"",
+      "T2-T3 gần như không phát sinh (1.15 triệu và 1.15 triệu), thấp hơn nhiều so với cùng kỳ 2025",
+      "Cùng kỳ 5T2025 khoản này đã đạt 131.1 triệu — cho thấy tốc độ giải ngân 2026 chậm hơn hẳn năm trước",
+    ],
   },
   {
     title: "Lợi nhuận tháng 4 sụt giảm",
     detail:
       "Lợi nhuận trước thuế tháng 4 giảm gần 20% so với tháng 3 (17.4 tỷ → 13.9 tỷ), cần phân tích nguyên nhân cụ thể.",
+    evidence: [
+      "LNTT: T3 17.38 tỷ → T4 13.88 tỷ = -20.1% (sheet KQKD 2026, dòng \"LỢI NHUẬN TRƯỚC THUẾ\")",
+      "Doanh thu T4 giảm còn 30.4 tỷ (thấp nhất 5 tháng), chi phí T4 tăng lên 16.4 tỷ (cao nhất 5 tháng)",
+      "Chi phí lương T4 tăng đột biến lên 4.12 tỷ so với trung bình ~3.1 tỷ các tháng khác — yếu tố chính kéo lợi nhuận giảm",
+    ],
   },
 ];
 

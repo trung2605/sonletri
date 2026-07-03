@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LabelList } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { yoyComparison } from "../../data/report.js";
 
@@ -59,13 +59,27 @@ export default function Slide04YoY({ index, total }) {
             <YAxis stroke="#64748b" />
             <Tooltip formatter={(v) => `${v} tỷ đồng`} />
             <Legend />
-            <Bar dataKey="TH 2025 (cả năm)" fill="#93c5fd" radius={[6, 6, 0, 0]} animationDuration={900} />
+            <Bar dataKey="TH 2025 (cả năm)" fill="#93c5fd" radius={[6, 6, 0, 0]} animationDuration={900}>
+              <LabelList
+                dataKey="TH 2025 (cả năm)"
+                position="top"
+                formatter={(v) => v.toFixed(1)}
+                className="fill-brand-700 text-xs font-semibold"
+              />
+            </Bar>
             <Bar
               dataKey={mode === "plan" ? "Kế hoạch 2026" : "TH 2026 (5 tháng)"}
               fill="#1d4ed8"
               radius={[6, 6, 0, 0]}
               animationDuration={900}
-            />
+            >
+              <LabelList
+                dataKey={mode === "plan" ? "Kế hoạch 2026" : "TH 2026 (5 tháng)"}
+                position="top"
+                formatter={(v) => v.toFixed(1)}
+                className="fill-brand-900 text-xs font-semibold"
+              />
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </motion.div>

@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { costDetail } from "../../data/report.js";
@@ -53,9 +54,15 @@ export default function Slide10CostDetail({ index, total }) {
             <YAxis stroke="#64748b" />
             <Tooltip formatter={(v) => `${v} tỷ đồng`} />
             <Legend />
-            <Area type="monotone" dataKey="rent" name="Thuê mặt bằng" stroke="#1d4ed8" fill="url(#rentGrad)" strokeWidth={2} animationDuration={1000} />
-            <Area type="monotone" dataKey="salary" name="Lương" stroke="#f97316" fill="url(#salaryGrad)" strokeWidth={2} animationDuration={1000} />
-            <Area type="monotone" dataKey="food" name="Thực phẩm, hàng hóa" stroke="#22c55e" fill="url(#foodGrad)" strokeWidth={2} animationDuration={1000} />
+            <Area type="monotone" dataKey="rent" name="Thuê mặt bằng" stroke="#1d4ed8" fill="url(#rentGrad)" strokeWidth={2} animationDuration={1000}>
+              <LabelList dataKey="rent" position="top" offset={10} style={{ fill: "#1d4ed8", fontSize: 12, fontWeight: 600 }} />
+            </Area>
+            <Area type="monotone" dataKey="salary" name="Lương" stroke="#f97316" fill="url(#salaryGrad)" strokeWidth={2} animationDuration={1000}>
+              <LabelList dataKey="salary" position="bottom" offset={10} style={{ fill: "#f97316", fontSize: 12, fontWeight: 600 }} />
+            </Area>
+            <Area type="monotone" dataKey="food" name="Thực phẩm, hàng hóa" stroke="#22c55e" fill="url(#foodGrad)" strokeWidth={2} animationDuration={1000}>
+              <LabelList dataKey="food" position="bottom" offset={-4} style={{ fill: "#16a34a", fontSize: 12, fontWeight: 600 }} />
+            </Area>
           </AreaChart>
         </ResponsiveContainer>
       </motion.div>

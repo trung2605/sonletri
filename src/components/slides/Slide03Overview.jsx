@@ -15,7 +15,7 @@ export default function Slide02Overview({ index, total }) {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-brand-900"
           >
-            Tổng quan kết quả kinh doanh
+            Tổng quan kết quả kinh doanh của AHTS
           </motion.h2>
           <p className="mt-2 text-slate-500">5 tháng đầu năm 2026 (T1 – T5)</p>
 

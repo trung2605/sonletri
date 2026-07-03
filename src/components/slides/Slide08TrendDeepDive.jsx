@@ -8,6 +8,7 @@ import {
   Tooltip,
   ReferenceArea,
   ResponsiveContainer,
+  LabelList,
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { monthlyTrend } from "../../data/report.js";
@@ -56,7 +57,9 @@ export default function Slide08TrendDeepDive({ index, total }) {
               fill="url(#profitGrad)"
               animationDuration={1200}
               dot={{ r: 5, fill: "#fff" }}
-            />
+            >
+              <LabelList dataKey="profit" position="top" offset={10} style={{ fill: "#fff", fontSize: 13, fontWeight: 700 }} />
+            </Area>
           </AreaChart>
         </ResponsiveContainer>
       </motion.div>
