@@ -72,6 +72,91 @@ export const actions = [
   "Theo dõi sát chi phí đảm bảo hoạt động văn phòng đang có xu hướng tăng nhanh.",
 ];
 
+export const agenda = [
+  { title: "Tổng quan kết quả kinh doanh", desc: "Doanh thu, chi phí, lợi nhuận 5 tháng" },
+  { title: "So sánh cùng kỳ 2025", desc: "Tăng trưởng và tiến độ kế hoạch" },
+  { title: "Cơ cấu doanh thu", desc: "Tỷ trọng theo mảng kinh doanh" },
+  { title: "Diễn biến theo tháng", desc: "Xu hướng doanh thu - chi phí - lợi nhuận" },
+  { title: "Cơ cấu chi phí", desc: "Phân tích các khoản mục chi phí" },
+  { title: "Điểm nghẽn & rủi ro", desc: "Các vấn đề cần lưu ý từ số liệu" },
+  { title: "Đề xuất hành động", desc: "Lộ trình khuyến nghị" },
+];
+
+export const yoyComparison = [
+  { label: "Doanh thu", y2025: 336.4, plan2026: 392.0, th2026: 158.7 },
+  { label: "Chi phí", y2025: 168.5, plan2026: 195.9, th2026: 78.4 },
+  { label: "LN trước thuế", y2025: 193.1, plan2026: 202.2, th2026: 79.3 },
+  { label: "LN sau thuế", y2025: 154.6, plan2026: 161.8, th2026: 62.0 },
+];
+
+export const revenueDetail = {
+  cip: {
+    name: "Dịch vụ phòng CIP",
+    value: 69.3,
+    pct: 43.7,
+    planPct: 44.0,
+    note: "Gần đạt tiến độ tuyến tính (41.7%), là mảng dịch vụ cao cấp chủ lực phục vụ khách thương gia và VIP.",
+  },
+  mb: {
+    name: "Mặt bằng kinh doanh",
+    value: 84.5,
+    pct: 53.3,
+    planPct: 39.3,
+    note: "Vượt tiến độ tuyến tính, đóng góp lớn nhất nhờ giá thuê ổn định và tỷ lệ lấp đầy cao.",
+  },
+};
+
+export const costDetail = [
+  { month: "T1", rent: 9.33, salary: 3.10, food: 1.97 },
+  { month: "T2", rent: 9.38, salary: 3.62, food: 2.04 },
+  { month: "T3", rent: 9.42, salary: 3.06, food: 2.11 },
+  { month: "T4", rent: 9.42, salary: 4.12, food: 2.00 },
+  { month: "T5", rent: 9.43, salary: 3.12, food: 2.06 },
+];
+
+export const riskMatrix = [
+  { name: "Rủi ro tập trung doanh thu (97% CIP+MB)", impact: 9, likelihood: 8 },
+  { name: "Doanh thu tài chính thấp (13.7% KH)", impact: 5, likelihood: 8 },
+  { name: "Chi phí văn phòng tăng vọt T5", impact: 4, likelihood: 7 },
+  { name: "Đào tạo tuyển dụng chậm giải ngân", impact: 3, likelihood: 6 },
+  { name: "Lợi nhuận T4 sụt giảm", impact: 6, likelihood: 5 },
+];
+
+export const roadmap = [
+  {
+    quarter: "Ngay trong T6/2026",
+    title: "Rà soát nguyên nhân sụt giảm lợi nhuận tháng 4",
+    detail: "Phân tích chi tiết theo từng khoản mục để có biện pháp ngăn ngừa lặp lại.",
+  },
+  {
+    quarter: "Q3/2026",
+    title: "Tái cấu trúc chiến lược đầu tư tài chính",
+    detail: "Cải thiện doanh thu từ lãi tiền gửi và lãi cho vay, hiện chỉ đạt 13.7% kế hoạch năm.",
+  },
+  {
+    quarter: "Q3-Q4/2026",
+    title: "Đa dạng hóa nguồn doanh thu",
+    detail: "Phát triển nhà hàng, Sleep Pods, Lounge để giảm phụ thuộc vào CIP và mặt bằng kinh doanh.",
+  },
+  {
+    quarter: "Song song cả năm",
+    title: "Đẩy nhanh giải ngân đào tạo tuyển dụng",
+    detail: "Bám sát tiến độ kế hoạch, hiện mới đạt 2.7% ngân sách năm.",
+  },
+  {
+    quarter: "Liên tục",
+    title: "Giám sát chi phí đảm bảo hoạt động văn phòng",
+    detail: "Theo dõi sát xu hướng tăng nhanh, tháng 5 gấp 3 lần tháng 1.",
+  },
+];
+
+export const kpiDashboard = [
+  { label: "Doanh thu / kế hoạch năm", value: 40.5, target: 41.7, unit: "%" },
+  { label: "Chi phí / kế hoạch năm", value: 40.0, target: 41.7, unit: "%" },
+  { label: "LN trước thuế / kế hoạch năm", value: 39.2, target: 41.7, unit: "%" },
+  { label: "Biên lợi nhuận sau thuế", value: 39.1, target: 38.0, unit: "%" },
+];
+
 export const meta = {
   company: "Công ty Cổ phần Dịch vụ Nhà ga Quốc tế Đà Nẵng",
   companyShort: "AHTS",
