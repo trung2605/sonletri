@@ -1,22 +1,23 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ChevronUp, ChevronDown, Menu, X } from "lucide-react";
-import Slide01Cover from "../components/slides/Slide01Cover.jsx";
-import Slide02Agenda from "../components/slides/Slide02Agenda.jsx";
-import Slide03Overview from "../components/slides/Slide03Overview.jsx";
-import Slide04YoY from "../components/slides/Slide04YoY.jsx";
-import Slide05RevenueMix from "../components/slides/Slide05RevenueMix.jsx";
-import Slide06RevenueDeepDive from "../components/slides/Slide06RevenueDeepDive.jsx";
-import Slide07Trend from "../components/slides/Slide07Trend.jsx";
-import Slide08TrendDeepDive from "../components/slides/Slide08TrendDeepDive.jsx";
-import Slide09CostStructure from "../components/slides/Slide09CostStructure.jsx";
-import Slide10CostDetail from "../components/slides/Slide10CostDetail.jsx";
-import Slide11BottlenecksA from "../components/slides/Slide11BottlenecksA.jsx";
-import Slide12RiskMatrix from "../components/slides/Slide12RiskMatrix.jsx";
-import Slide13Roadmap from "../components/slides/Slide13Roadmap.jsx";
-import Slide14Dashboard from "../components/slides/Slide14Dashboard.jsx";
-import Slide15ThankYou from "../components/slides/Slide15ThankYou.jsx";
+
+const Slide01Cover = lazy(() => import("../components/slides/Slide01Cover.jsx"));
+const Slide02Agenda = lazy(() => import("../components/slides/Slide02Agenda.jsx"));
+const Slide03Overview = lazy(() => import("../components/slides/Slide03Overview.jsx"));
+const Slide04YoY = lazy(() => import("../components/slides/Slide04YoY.jsx"));
+const Slide05RevenueMix = lazy(() => import("../components/slides/Slide05RevenueMix.jsx"));
+const Slide06RevenueDeepDive = lazy(() => import("../components/slides/Slide06RevenueDeepDive.jsx"));
+const Slide07Trend = lazy(() => import("../components/slides/Slide07Trend.jsx"));
+const Slide08TrendDeepDive = lazy(() => import("../components/slides/Slide08TrendDeepDive.jsx"));
+const Slide09CostStructure = lazy(() => import("../components/slides/Slide09CostStructure.jsx"));
+const Slide10CostDetail = lazy(() => import("../components/slides/Slide10CostDetail.jsx"));
+const Slide11BottlenecksA = lazy(() => import("../components/slides/Slide11BottlenecksA.jsx"));
+const Slide12RiskMatrix = lazy(() => import("../components/slides/Slide12RiskMatrix.jsx"));
+const Slide13Roadmap = lazy(() => import("../components/slides/Slide13Roadmap.jsx"));
+const Slide14Dashboard = lazy(() => import("../components/slides/Slide14Dashboard.jsx"));
+const Slide15ThankYou = lazy(() => import("../components/slides/Slide15ThankYou.jsx"));
 
 const slides = [
   Slide01Cover,
@@ -35,6 +36,14 @@ const slides = [
   Slide14Dashboard,
   Slide15ThankYou,
 ];
+
+function SlideFallback() {
+  return (
+    <div className="w-full min-h-screen flex items-center justify-center bg-white">
+      <div className="w-8 h-8 border-2 border-brand-200 border-t-brand-600 rounded-full animate-spin" />
+    </div>
+  );
+}
 
 // Ánh xạ 7 mục agenda -> slide bắt đầu tương ứng (theo thứ tự agenda trong report.js)
 const agendaTargets = [2, 3, 4, 6, 8, 10, 12];
@@ -187,15 +196,16 @@ export default function Presentation() {
 
       <div
         ref={containerRef}
-        className="w-full h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth"
+        className="w-full h-screen overflow-y-auto scroll-smooth"
       >
         {slides.map((Slide, i) => (
-          <Slide
-            key={i}
-            index={i + 1}
-            total={slides.length}
-            onJump={Slide === Slide02Agenda ? handleJump : undefined}
-          />
+          <Suspense key={i} fallback={<SlideFallback />}>
+            <Slide
+              index={i + 1}
+              total={slides.length}
+              onJump={Slide === Slide02Agenda ? handleJump : undefined}
+            />
+          </Suspense>
         ))}
       </div>
     </div>
