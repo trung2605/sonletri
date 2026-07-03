@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Target, ChevronRight } from "lucide-react";
 import SlideShell from "../ui/SlideShell.jsx";
 import { roadmap } from "../../data/report.js";
+import photo from "../../assets/photos/Copy of 0L3A0544.jfif";
 
 const BLUE = "#1d4ed8";
 
@@ -82,18 +83,31 @@ export default function Slide13Roadmap({ index, total }) {
   return (
     <SlideShell index={index} total={total}>
       <div className="flex-1 flex flex-col max-w-5xl mx-auto w-full">
-        <motion.h2
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="text-2xl md:text-3xl font-bold text-brand-900"
-        >
-          Lộ trình hành động đề xuất
-        </motion.h2>
-        <p className="mt-1 text-sm text-slate-500">
-          Bấm vào từng nút để xem chi tiết —{" "}
-          <span className="font-semibold text-brand-700">{item.title}</span>
-        </p>
+        <div className="flex items-start justify-between gap-6">
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="text-2xl md:text-3xl font-bold text-brand-900"
+            >
+              Lộ trình hành động đề xuất
+            </motion.h2>
+            <p className="mt-1 text-sm text-slate-500">
+              Bấm vào từng nút để xem chi tiết —{" "}
+              <span className="font-semibold text-brand-700">{item.title}</span>
+            </p>
+          </div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="hidden lg:block w-20 h-16 rounded-xl overflow-hidden shadow-sm shrink-0"
+          >
+            <img src={photo} alt="Lộ trình" className="w-full h-full object-cover" />
+          </motion.div>
+        </div>
 
         {/* ── Horizontal stepper ── */}
         <div className="mt-5 mb-2">

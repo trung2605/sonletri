@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import SlideShell from "../ui/SlideShell.jsx";
 import { bottlenecks, riskMatrix } from "../../data/report.js";
+import photo from "../../assets/photos/Copy of DSC09840.jfif";
 
 const riskColor = (impact, likelihood) => {
   const score = impact * likelihood;
@@ -101,40 +102,60 @@ export default function Slide12RiskMatrix({ index, total }) {
           })}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="rounded-2xl border border-brand-100 p-4 h-80"
-        >
-          <p className="text-xs text-slate-400 mb-1 text-center">Trục X: Khả năng xảy ra · Trục Y: Mức độ ảnh hưởng</p>
-          <ResponsiveContainer width="100%" height="90%">
-            <ScatterChart margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
-              <XAxis type="number" dataKey="likelihood" name="Khả năng xảy ra" domain={[0, 10]} stroke="#64748b" />
-              <YAxis type="number" dataKey="impact" name="Mức độ ảnh hưởng" domain={[0, 10]} stroke="#64748b" />
-              <ZAxis range={[200, 200]} />
-              <Tooltip
-                cursor={{ strokeDasharray: "3 3" }}
-                formatter={(v, n) => [v, n]}
-                labelFormatter={() => ""}
-                content={({ active, payload }) =>
-                  active && payload?.length ? (
-                    <div className="bg-white rounded-lg shadow-lg border border-brand-100 p-3 text-xs max-w-52">
-                      {payload[0].payload.name}
-                    </div>
-                  ) : null
-                }
-              />
-              <Scatter data={riskMatrix} animationDuration={900}>
-                {riskMatrix.map((r) => (
-                  <Cell key={r.name} fill={riskColor(r.impact, r.likelihood)} />
-                ))}
-              </Scatter>
-            </ScatterChart>
-          </ResponsiveContainer>
-        </motion.div>
+        <div className="flex flex-col gap-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="rounded-2xl border border-brand-100 p-4 h-72"
+          >
+            <p className="text-xs text-slate-400 mb-1 text-center">Trục X: Khả năng xảy ra · Trục Y: Mức độ ảnh hưởng</p>
+            <ResponsiveContainer width="100%" height="90%">
+              <ScatterChart margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
+                <XAxis type="number" dataKey="likelihood" name="Khả năng xảy ra" domain={[0, 10]} stroke="#64748b" />
+                <YAxis type="number" dataKey="impact" name="Mức độ ảnh hưởng" domain={[0, 10]} stroke="#64748b" />
+                <ZAxis range={[200, 200]} />
+                <Tooltip
+                  cursor={{ strokeDasharray: "3 3" }}
+                  formatter={(v, n) => [v, n]}
+                  labelFormatter={() => ""}
+                  content={({ active, payload }) =>
+                    active && payload?.length ? (
+                      <div className="bg-white rounded-lg shadow-lg border border-brand-100 p-3 text-xs max-w-52">
+                        {payload[0].payload.name}
+                      </div>
+                    ) : null
+                  }
+                />
+                <Scatter data={riskMatrix} animationDuration={900}>
+                  {riskMatrix.map((r) => (
+                    <Cell key={r.name} fill={riskColor(r.impact, r.likelihood)} />
+                  ))}
+                </Scatter>
+              </ScatterChart>
+            </ResponsiveContainer>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="rounded-2xl overflow-hidden shadow-md relative group flex-1 min-h-24"
+          >
+            <img
+              src={photo}
+              alt="Kiểm soát rủi ro"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-brand-950/55 via-transparent to-transparent" />
+            <div className="absolute bottom-3 left-4 text-white text-xs font-medium">
+              Giám sát rủi ro định kỳ · Cập nhật ma trận hàng tháng
+            </div>
+          </motion.div>
+        </div>
       </div>
     </SlideShell>
   );
