@@ -61,16 +61,6 @@ export default function SlideShell({
       >
         {children}
       </motion.div>
-
-      {typeof index === "number" && (
-        <div
-          className={`absolute bottom-5 right-8 text-xs font-medium tracking-wide ${
-            dark || bgImage ? "text-white/50" : "text-slate-400"
-          }`}
-        >
-          {String(index).padStart(2, "0")} / {String(total).padStart(2, "0")}
-        </div>
-      )}
     </section>
   );
 }

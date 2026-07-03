@@ -66,19 +66,20 @@ export default function Presentation() {
     const container = containerRef.current;
     if (!container) return;
     const sections = container.querySelectorAll("section");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Array.from(sections).indexOf(entry.target);
-            if (idx !== -1) setActive(idx);
-          }
-        });
-      },
-      { root: container, threshold: 0.6 }
-    );
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
+    const onScroll = () => {
+      const center = container.scrollTop + container.clientHeight / 2;
+      for (let i = 0; i < sections.length; i++) {
+        const top = sections[i].offsetTop;
+        const bottom = top + sections[i].offsetHeight;
+        if (center >= top && center < bottom) {
+          setActive(i);
+          break;
+        }
+      }
+    };
+    container.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => container.removeEventListener("scroll", onScroll);
   }, []);
 
   const scrollToIndex = useCallback((i) => {
