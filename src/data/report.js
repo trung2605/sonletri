@@ -113,14 +113,20 @@ export const revenueDetail = {
     value: 69.3,
     pct: 43.7,
     planPct: 44.0,
+    plan2026: 157.7,
+    y2025: 139.6,
     note: "Gần đạt tiến độ tuyến tính (41.7%), là mảng dịch vụ cao cấp chủ lực phục vụ khách thương gia và VIP.",
+    monthly: [14.76, 13.60, 14.30, 13.19, 13.47],
   },
   mb: {
     name: "Mặt bằng kinh doanh",
     value: 84.5,
     pct: 53.3,
     planPct: 39.3,
+    plan2026: 214.9,
+    y2025: 196.0,
     note: "Vượt tiến độ tuyến tính, đóng góp lớn nhất nhờ giá thuê ổn định và tỷ lệ lấp đầy cao.",
+    monthly: [17.61, 16.81, 17.74, 16.01, 16.35],
   },
 };
 
