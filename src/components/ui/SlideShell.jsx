@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import useViewportHeight from "../../hooks/useViewportHeight.js";
 
 export default function SlideShell({
   children,
@@ -9,8 +10,11 @@ export default function SlideShell({
   bgImage,
   bgOverlay = "brand",
 }) {
+  const viewportHeight = useViewportHeight();
+
   return (
     <section
+      style={{ height: viewportHeight ? `${viewportHeight}px` : "100vh" }}
       className={`relative w-full flex flex-col ${
         dark && !bgImage
           ? "bg-linear-to-br from-brand-900 via-brand-800 to-brand-700 text-white"

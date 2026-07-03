@@ -7,7 +7,7 @@ const particles = Array.from({ length: 14 });
 
 export default function Slide08ThankYou({ index, total }) {
   return (
-    <SlideShell dark index={index} total={total} bgImage={photo} className="justify-center items-center text-center">
+    <SlideShell dark index={index} total={total} bgImage={photo} className="justify-center items-center text-center ">
       {particles.map((_, i) => (
         <motion.span
           key={i}
