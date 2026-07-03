@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import SlideShell from "../ui/SlideShell.jsx";
 import { meta } from "../../data/report.js";
 import cover from "../../assets/photos/airport-terminal-1.jpg";
+import logo from "../../assets/photos/logo.jpg";
 
 export default function Slide01Cover({ index, total }) {
   return (
@@ -11,9 +12,10 @@ export default function Slide01Cover({ index, total }) {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7 }}
-          className="mb-6 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-brand-100 text-sm tracking-widest uppercase"
+          className="mb-6 flex items-center gap-4 px-5 py-2 rounded-full bg-white/10 border border-white/20"
         >
-          {meta.companyShort} &middot; Báo cáo tài chính
+          <img src={logo} alt="AHTS logo" className="h-full w-16 border border-white/20 rounded-full" />
+          <span className="text-brand-100 text-sm tracking-widest uppercase">{meta.companyShort} &middot; Báo cáo tài chính</span>
         </motion.div>
 
         <motion.h1
@@ -28,7 +30,7 @@ export default function Slide01Cover({ index, total }) {
             initial={{ backgroundPosition: "200% 0" }}
             animate={{ backgroundPosition: "0% 0" }}
             transition={{ duration: 1.6, delay: 0.4 }}
-            className="bg-gradient-to-r from-brand-200 via-white to-brand-200 bg-clip-text text-transparent bg-[length:200%_auto]"
+            className="bg-linear-to-r from-brand-200 via-white to-brand-200 bg-clip-text text-transparent bg-[length:200%_auto]"
           >
             5 tháng đầu năm 2026
           </motion.span>
