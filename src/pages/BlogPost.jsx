@@ -54,7 +54,7 @@ export default function BlogPost() {
       <footer className="border-t border-brand-100 py-8 mt-16">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-400">
           <span>© 2026 {meta.company}</span>
-          <span>{meta.department}</span>
+          <a href="mailto:sonletri@gmail.com" className="hover:text-brand-400 transition-colors">sonletri@gmail.com</a>
         </div>
       </footer>
     </div>

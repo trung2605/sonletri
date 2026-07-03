@@ -314,8 +314,8 @@ export default function Home() {
           >
             <div className="flex items-center gap-3">
               <Mail size={18} className="text-brand-600 shrink-0" />
-              <a href="mailto:letritrung2605@gmail.com" className="hover:text-brand-700 transition-colors">
-                letritrung2605@gmail.com
+              <a href="mailto:sonletri@gmail.com" className="hover:text-brand-700 transition-colors">
+                sonletri@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-3">
@@ -329,7 +329,7 @@ export default function Home() {
       <footer className="border-t border-brand-100 py-8">
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-slate-400">
           <span>© 2026 {meta.company}</span>
-          <span>{meta.department}</span>
+          <a href="mailto:sonletri@gmail.com" className="hover:text-brand-400 transition-colors">sonletri@gmail.com</a>
         </div>
       </footer>
     </div>
