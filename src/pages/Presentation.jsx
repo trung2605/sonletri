@@ -1,25 +1,9 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ChevronUp, ChevronDown, Menu, X } from "lucide-react";
-
-const Slide01Cover = lazy(() => import("../components/slides/Slide01Cover.jsx"));
-const Slide02Agenda = lazy(() => import("../components/slides/Slide02Agenda.jsx"));
-const Slide03Overview = lazy(() => import("../components/slides/Slide03Overview.jsx"));
-const Slide04YoY = lazy(() => import("../components/slides/Slide04YoY.jsx"));
-const Slide05RevenueMix = lazy(() => import("../components/slides/Slide05RevenueMix.jsx"));
-const Slide06RevenueDeepDive = lazy(() => import("../components/slides/Slide06RevenueDeepDive.jsx"));
-const Slide07Trend = lazy(() => import("../components/slides/Slide07Trend.jsx"));
-const Slide08TrendDeepDive = lazy(() => import("../components/slides/Slide08TrendDeepDive.jsx"));
-const Slide09CostStructure = lazy(() => import("../components/slides/Slide09CostStructure.jsx"));
-const Slide10CostDetail = lazy(() => import("../components/slides/Slide10CostDetail.jsx"));
-const Slide11BottlenecksA = lazy(() => import("../components/slides/Slide11BottlenecksA.jsx"));
-const Slide12RiskMatrix = lazy(() => import("../components/slides/Slide12RiskMatrix.jsx"));
-const Slide13Roadmap = lazy(() => import("../components/slides/Slide13Roadmap.jsx"));
-const Slide14Dashboard = lazy(() => import("../components/slides/Slide14Dashboard.jsx"));
-const Slide15ThankYou = lazy(() => import("../components/slides/Slide15ThankYou.jsx"));
-
-const TOTAL_SLIDES = 15;
+import { SLIDE_REGISTRY } from "../data/slideRegistry.js";
+import { REPORTS } from "../data/reports.js";
 
 function SlideFallback() {
   return (
@@ -29,33 +13,24 @@ function SlideFallback() {
   );
 }
 
-// Ánh xạ 7 mục agenda -> slide bắt đầu tương ứng (theo thứ tự agenda trong report.js)
-const agendaTargets = [2, 3, 4, 6, 8, 10, 12];
-
-const slideTitles = [
-  "Trang bìa",
-  "Nội dung báo cáo",
-  "Tổng quan kết quả kinh doanh",
-  "So sánh cùng kỳ 2025",
-  "Cơ cấu doanh thu",
-  "Phân tích chuyên sâu CIP & Mặt bằng",
-  "Diễn biến theo tháng",
-  "Truy nguyên nhân điểm trũng T4",
-  "Cơ cấu chi phí",
-  "Chi tiết 3 khoản chi lớn nhất",
-  "Điểm nghẽn cần lưu ý (1/2)",
-  "Điểm nghẽn & ma trận rủi ro (2/2)",
-  "Lộ trình hành động",
-  "Bảng điều khiển KPI",
-  "Cảm ơn",
-];
-
 export default function Presentation() {
+  const [searchParams] = useSearchParams();
+  const reportId = searchParams.get("report") || REPORTS[0].id;
+  const report = REPORTS.find((r) => r.id === reportId) || REPORTS[0];
+
+  const slides = report.slideIds
+    .map((id) => SLIDE_REGISTRY.find((s) => s.id === id))
+    .filter(Boolean);
+
+  const TOTAL = slides.length;
+  const slideTitles = slides.map((s) => s.title);
+
   const containerRef = useRef(null);
   const activeRef = useRef(0);
   const [active, setActive] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // ── Scroll tracking ──
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
@@ -69,7 +44,10 @@ export default function Presentation() {
         const i = Number(wrapper.dataset.slideIndex);
         const top = wrapper.offsetTop;
         const bottom = top + wrapper.offsetHeight;
-        const dist = center >= top && center < bottom ? 0 : Math.min(Math.abs(center - top), Math.abs(center - bottom));
+        const dist =
+          center >= top && center < bottom
+            ? 0
+            : Math.min(Math.abs(center - top), Math.abs(center - bottom));
         if (dist < closestDist) {
           closestDist = dist;
           closest = i;
@@ -82,28 +60,37 @@ export default function Presentation() {
     container.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => container.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [slides]);
 
-  const scrollToIndex = useCallback((i) => {
-    const container = containerRef.current;
-    const clamped = Math.max(0, Math.min(TOTAL_SLIDES - 1, i));
-    const wrapper = container?.querySelector(`:scope > [data-slide-index="${clamped}"]`);
-    wrapper?.scrollIntoView({ behavior: "smooth", block: "start" });
-    setMenuOpen(false);
-  }, []);
-
-  const handleJump = useCallback(
-    (agendaIdx) => scrollToIndex(agendaTargets[agendaIdx]),
-    [scrollToIndex]
+  // ── Scroll to slide index ──
+  const scrollToIndex = useCallback(
+    (i) => {
+      const container = containerRef.current;
+      const clamped = Math.max(0, Math.min(TOTAL - 1, i));
+      const wrapper = container?.querySelector(
+        `:scope > [data-slide-index="${clamped}"]`
+      );
+      wrapper?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setMenuOpen(false);
+    },
+    [TOTAL]
   );
 
-  // Keyboard navigation: ArrowUp/ArrowDown (and PageUp/PageDown) move one slide
+  // ── Jump via agenda (Slide02) ──
+  const handleJump = useCallback(
+    (agendaIdx) => {
+      const target = report.agendaSlideIndices?.[agendaIdx];
+      if (target !== undefined) scrollToIndex(target);
+    },
+    [scrollToIndex, report]
+  );
+
+  // ── Keyboard navigation ──
   useEffect(() => {
     const onKeyDown = (e) => {
       if (menuOpen) return;
       const tag = document.activeElement?.tagName;
       if (tag === "INPUT" || tag === "TEXTAREA") return;
-
       if (e.key === "ArrowDown" || e.key === "PageDown") {
         e.preventDefault();
         scrollToIndex(activeRef.current + 1);
@@ -118,18 +105,20 @@ export default function Presentation() {
 
   return (
     <div className="relative w-full h-screen bg-white">
+      {/* ── Back to reports gallery ── */}
       <Link
-        to="/"
+        to="/reports"
         className="fixed top-3 left-3 sm:top-5 sm:left-5 z-50 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md text-brand-700 font-medium text-xs sm:text-sm hover:bg-brand-50 transition"
       >
         <ArrowLeft size={14} className="sm:hidden" />
         <ArrowLeft size={16} className="hidden sm:block" />
-        <span className="hidden sm:inline">Trang chủ</span>
+        <span className="hidden sm:inline">Danh sách</span>
       </Link>
 
+      {/* ── Slide counter + menu toggle ── */}
       <div className="fixed top-3 right-3 sm:top-5 sm:right-5 z-50 flex items-center gap-1.5 sm:gap-2">
         <div className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md text-brand-700 text-[11px] sm:text-xs font-semibold">
-          {active + 1} / {TOTAL_SLIDES}
+          {active + 1} / {TOTAL}
         </div>
         <button
           onClick={() => setMenuOpen((v) => !v)}
@@ -141,6 +130,7 @@ export default function Presentation() {
         </button>
       </div>
 
+      {/* ── Slide list drawer ── */}
       <AnimatePresence>
         {menuOpen && (
           <>
@@ -167,12 +157,16 @@ export default function Presentation() {
                     key={i}
                     onClick={() => scrollToIndex(i)}
                     className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors ${
-                      active === i ? "bg-brand-50 text-brand-700" : "text-slate-600 hover:bg-slate-50"
+                      active === i
+                        ? "bg-brand-50 text-brand-700"
+                        : "text-slate-600 hover:bg-slate-50"
                     }`}
                   >
                     <span
                       className={`flex-shrink-0 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center ${
-                        active === i ? "bg-brand-600 text-white" : "bg-slate-100 text-slate-500"
+                        active === i
+                          ? "bg-brand-600 text-white"
+                          : "bg-slate-100 text-slate-500"
                       }`}
                     >
                       {i + 1}
@@ -186,6 +180,7 @@ export default function Presentation() {
         )}
       </AnimatePresence>
 
+      {/* ── Prev / Next buttons ── */}
       <div className="fixed bottom-3 right-3 sm:bottom-5 sm:right-5 z-50 flex flex-col gap-1.5 sm:gap-2">
         <button
           onClick={() => scrollToIndex(active - 1)}
@@ -199,7 +194,7 @@ export default function Presentation() {
         <button
           onClick={() => scrollToIndex(active + 1)}
           className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-md border border-brand-100 flex items-center justify-center text-brand-700 hover:bg-brand-50 disabled:opacity-30"
-          disabled={active === TOTAL_SLIDES - 1}
+          disabled={active === TOTAL - 1}
           aria-label="Slide sau"
         >
           <ChevronDown size={16} className="sm:hidden" />
@@ -207,85 +202,22 @@ export default function Presentation() {
         </button>
       </div>
 
+      {/* ── Scroll container ── */}
       <div
         ref={containerRef}
         className="w-full h-screen overflow-y-auto overflow-x-hidden scroll-smooth"
       >
-        <div data-slide-index={0} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide01Cover index={1} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={1} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide02Agenda index={2} total={TOTAL_SLIDES} onJump={handleJump} />
-          </Suspense>
-        </div>
-        <div data-slide-index={2} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide03Overview index={3} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={3} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide04YoY index={4} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={4} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide05RevenueMix index={5} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={5} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide06RevenueDeepDive index={6} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={6} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide07Trend index={7} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={7} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide08TrendDeepDive index={8} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={8} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide09CostStructure index={9} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={9} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide10CostDetail index={10} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={10} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide11BottlenecksA index={11} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={11} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide12RiskMatrix index={12} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={12} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide13Roadmap index={13} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={13} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide14Dashboard index={14} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
-        <div data-slide-index={14} className="scroll-mt-16">
-          <Suspense fallback={<SlideFallback />}>
-            <Slide15ThankYou index={15} total={TOTAL_SLIDES} />
-          </Suspense>
-        </div>
+        {slides.map((slide, i) => (
+          <div key={slide.id} data-slide-index={i} className="scroll-mt-16">
+            <Suspense fallback={<SlideFallback />}>
+              <slide.Component
+                index={i + 1}
+                total={TOTAL}
+                {...(slide.isAgenda ? { onJump: handleJump } : {})}
+              />
+            </Suspense>
+          </div>
+        ))}
       </div>
     </div>
   );

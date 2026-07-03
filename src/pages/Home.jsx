@@ -1,32 +1,20 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, BarChart3, Building2, TrendingUp, Briefcase, Award, CalendarClock } from "lucide-react";
+import { ArrowRight, FileText, User, BookOpen, Mail, MapPin } from "lucide-react";
 import { meta, director } from "../data/report.js";
+import { REPORTS } from "../data/reports.js";
 import heroPhoto from "../assets/photos/airport-terminal-1.webp";
-import lounge from "../assets/photos/business-lounge-1.webp";
-import hall from "../assets/photos/airport-hall-1.webp";
 import directorPhoto from "../assets/photos/le-tri-son-portrait.webp";
-import logo from "../assets/photos/logo.webp";
-import Tilt3DCard from "../components/ui/Tilt3DCard.jsx";
+import Navbar from "../components/ui/Navbar.jsx";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-white overflow-x-hidden">
-      <header className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <img src={logo} alt="AHTS" className="w-9 h-9 rounded-lg object-cover" />
-          <span className="font-display font-semibold text-brand-900">{meta.companyShort} Portal</span>
-        </div>
-        <nav className="hidden md:flex gap-8 text-sm text-slate-500">
-          <a href="#bao-cao" className="relative py-1 hover:text-brand-600 transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-brand-600 hover:after:w-full after:transition-all">Báo cáo</a>
-          <a href="#du-an" className="relative py-1 hover:text-brand-600 transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-brand-600 hover:after:w-full after:transition-all">Dự án</a>
-          <a href="#ve-toi" className="relative py-1 hover:text-brand-600 transition-colors after:absolute after:left-0 after:-bottom-0.5 after:h-px after:w-0 after:bg-brand-600 hover:after:w-full after:transition-all">Về tôi</a>
-        </nav>
-      </header>
+      <Navbar />
 
-      <main className="max-w-6xl mx-auto px-6">
-        {/* ── Hero — offset asymmetric grid, not centered ── */}
-        <section id="bao-cao" className="grid md:grid-cols-12 gap-10 items-center py-16 md:py-24">
+      {/* ── Hero: portal intro ── */}
+      <section className="max-w-6xl mx-auto px-6 py-16 md:py-24">
+        <div className="grid md:grid-cols-12 gap-10 items-center">
           <div className="md:col-span-7">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -34,7 +22,7 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-semibold tracking-wide uppercase mb-4"
             >
-              Portfolio &middot; Báo cáo doanh nghiệp
+              {meta.companyShort} Portal
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -42,11 +30,9 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-display text-4xl md:text-6xl font-bold text-brand-900 leading-[1.05] tracking-tight"
             >
-              Báo cáo kết quả
+              Trang thông tin
               <br />
-              kinh doanh
-              <br />
-              <span className="text-brand-500">5 tháng đầu 2026</span>
+              báo cáo doanh nghiệp
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -54,157 +40,195 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-6 text-slate-500 text-lg max-w-md leading-relaxed"
             >
-              {meta.company} — phân tích số liệu tài chính, cơ cấu doanh thu, chi phí và các
-              khuyến nghị hành động cho kỳ {meta.period}.
+              Tổng hợp các báo cáo tài chính, phân tích số liệu kinh doanh và các
+              ấn phẩm chuyên sâu từ {meta.companyShort}.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-8 flex gap-4"
+              className="mt-8 flex flex-wrap gap-3"
             >
               <Link
-                to="/presentation"
+                to="/reports"
                 className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-600 text-white font-semibold shadow-lg shadow-brand-200 hover:bg-brand-700 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all"
               >
-                Mở bài thuyết trình
+                Khám phá báo cáo
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link
+                to="/about"
+                className="group inline-flex items-center gap-2 px-6 py-3 rounded-full border border-brand-200 text-brand-700 font-semibold hover:bg-brand-50 hover:-translate-y-0.5 active:scale-[0.98] transition-all"
+              >
+                Về tôi
               </Link>
             </motion.div>
           </div>
 
-          {/* Image bleeds slightly off the grid + overlap for depth */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            whileHover={{ scale: 1.02 }}
-            className="md:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl shadow-brand-200/50 aspect-[4/3] md:-mr-6 md:mt-8"
+            className="md:col-span-5 relative rounded-3xl overflow-hidden shadow-2xl shadow-brand-200/50 aspect-4/3 md:-mr-6 md:mt-8"
           >
             <img src={heroPhoto} alt="Nhà ga quốc tế Đà Nẵng" className="w-full h-full object-cover" />
             <div className="absolute inset-0 bg-linear-to-t from-brand-950/60 via-transparent to-transparent" />
           </motion.div>
-        </section>
+        </div>
+      </section>
 
-        {/* ── Featured segments — zig-zag, unequal weight instead of 2 equal cards ── */}
-        <section id="du-an" className="pb-16">
+      {/* ── Report gallery ── */}
+      <section className="bg-brand-50/30 border-y border-brand-100">
+        <div className="max-w-6xl mx-auto px-6 py-16">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="grid md:grid-cols-5 gap-5"
+            className="flex items-center gap-2 mb-2"
           >
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -6 }}
-              className="md:col-span-3 relative rounded-2xl overflow-hidden shadow-lg h-64 md:h-72 group"
-            >
-              <img src={hall} alt="Mặt bằng kinh doanh" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-linear-to-t from-brand-950/85 via-brand-950/10 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <p className="font-display font-bold text-xl">Mặt bằng kinh doanh</p>
-                <p className="text-sm text-brand-100 mt-1">53.3% tổng doanh thu 5 tháng — mảng chủ lực số một</p>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.12 }}
-              whileHover={{ y: -6 }}
-              className="md:col-span-2 relative rounded-2xl overflow-hidden shadow-lg h-64 md:h-72 group"
-            >
-              <img src={lounge} alt="Dịch vụ phòng CIP" loading="lazy" decoding="async" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-linear-to-t from-brand-950/85 via-brand-950/10 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <p className="font-display font-bold text-xl">Dịch vụ phòng CIP</p>
-                <p className="text-sm text-brand-100 mt-1">43.7% tổng doanh thu</p>
-              </div>
-            </motion.div>
+            <FileText size={18} className="text-brand-600" />
+            <span className="uppercase text-xs font-semibold text-brand-700 tracking-wide">Báo cáo của tôi</span>
           </motion.div>
-        </section>
-
-        {/* ── Key stats — one stat given visual weight, not 3 equal boxes ── */}
-        <section className="grid md:grid-cols-5 gap-5 pb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            whileHover={{ y: -4 }}
-            className="md:col-span-2 rounded-2xl bg-brand-900 p-7 shadow-xl shadow-brand-200/40 flex flex-col justify-between"
+            transition={{ delay: 0.05 }}
+            className="font-display text-3xl md:text-4xl font-bold text-brand-900 tracking-tight"
           >
-            <TrendingUp className="text-brand-300 mb-6" size={28} />
-            <div>
-              <p className="font-display text-4xl font-bold text-white">158.7 tỷ</p>
-              <p className="mt-2 text-sm text-brand-200 leading-relaxed">
-                Tổng doanh thu 5 tháng, đạt 40.5% kế hoạch năm 2026
-              </p>
-            </div>
-          </motion.div>
+            Các báo cáo hiện có
+          </motion.h2>
 
-          <div className="md:col-span-3 grid grid-cols-2 gap-5">
-            {[
-              {
-                icon: BarChart3,
-                title: "97%",
-                desc: "Doanh thu tập trung ở 2 mảng CIP và mặt bằng kinh doanh",
-              },
-              {
-                icon: Building2,
-                title: "62.0 tỷ",
-                desc: "Lợi nhuận sau thuế, biên lợi nhuận 39.1%",
-              },
-            ].map((card, i) => (
+          <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {REPORTS.map((report, i) => (
               <motion.div
-                key={card.title}
+                key={report.id}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.5 }}
-                whileHover={{ y: -4 }}
-                className="rounded-2xl bg-brand-50/70 p-6 hover:bg-brand-50 transition-colors"
+                transition={{ delay: i * 0.08, duration: 0.5 }}
               >
-                <card.icon className="text-brand-600 mb-4" size={24} />
-                <p className="font-display text-2xl font-bold text-brand-900">{card.title}</p>
-                <p className="mt-1.5 text-sm text-slate-500 leading-relaxed">{card.desc}</p>
+                <Link
+                  to={`/presentation?report=${report.id}`}
+                  className="group flex flex-col h-full rounded-2xl border border-brand-100 bg-white shadow-sm hover:shadow-lg hover:border-brand-300 transition-all overflow-hidden"
+                >
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={report.thumbnail}
+                      alt={report.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-brand-950/80 via-brand-950/10 to-transparent" />
+                    <div className="absolute bottom-3 left-3 right-3">
+                      <p className="text-sm font-semibold text-white drop-shadow line-clamp-2">
+                        {report.name}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-col flex-1 p-4">
+                    <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 flex-1">
+                      {report.desc}
+                    </p>
+                    {report.stats && (
+                      <div className="mt-3 flex gap-2 flex-wrap">
+                        {report.stats.map((s) => (
+                          <span
+                            key={s.label}
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-brand-50 text-brand-700 text-[10px] font-semibold"
+                          >
+                            <span className="font-normal text-brand-500">{s.label}</span>
+                            <span>{s.value}</span>
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-3 pt-2.5 border-t border-brand-100 flex items-center justify-between">
+                      <span className="text-xs text-brand-600 font-medium group-hover:text-brand-700 transition-colors">
+                        Mở báo cáo
+                      </span>
+                      <ArrowRight size={14} className="text-brand-300 group-hover:text-brand-600 group-hover:translate-x-1 transition-all" />
+                    </div>
+                  </div>
+                </Link>
               </motion.div>
             ))}
           </div>
-        </section>
-      </main>
 
-      <section id="ve-toi" className="bg-brand-50/60 border-y border-brand-100">
-        <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-5 gap-10 items-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-8 text-center"
+          >
+            <Link
+              to="/reports"
+              className="inline-flex items-center gap-1.5 text-sm text-brand-600 hover:text-brand-700 font-medium"
+            >
+              Xem tất cả báo cáo
+              <ArrowRight size={14} />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Quick navigation ── */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            { to: "/reports", icon: FileText, title: "Báo cáo", desc: "Khám phá các báo cáo tài chính và phân tích doanh nghiệp." },
+            { to: "/blog", icon: BookOpen, title: "Blog", desc: "Ghi chú, cập nhật và bài viết chuyên sâu." },
+            { to: "/about", icon: User, title: "Về tôi", desc: "Thông tin về tác giả và người quản lý trang." },
+          ].map((item, i) => (
+            <motion.div
+              key={item.to}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+            >
+              <Link
+                to={item.to}
+                className="group flex items-start gap-4 rounded-2xl border border-brand-100 bg-white p-5 shadow-sm hover:shadow-md hover:border-brand-300 transition-all h-full"
+              >
+                <div className="shrink-0 w-11 h-11 rounded-xl bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-100 transition-colors">
+                  <item.icon size={20} />
+                </div>
+                <div>
+                  <p className="font-semibold text-brand-900 group-hover:text-brand-700 transition-colors">{item.title}</p>
+                  <p className="mt-0.5 text-xs sm:text-sm text-slate-500">{item.desc}</p>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Về tôi preview ── */}
+      <section className="bg-brand-50/60 border-y border-brand-100">
+        <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-5 gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="md:col-span-2"
+            transition={{ duration: 0.6 }}
+            className="md:col-span-2 relative rounded-3xl overflow-hidden shadow-xl aspect-4/5"
           >
-            <Tilt3DCard className="relative rounded-3xl shadow-2xl aspect-[4/5]">
-              <div className="w-full h-full rounded-3xl overflow-hidden">
-                <img
-                  src={directorPhoto}
-                  alt={director.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-brand-950/70 via-transparent to-transparent" />
-              </div>
-              <div
-                style={{ transform: "translateZ(40px)" }}
-                className="absolute bottom-5 left-5 right-5 text-white"
-              >
-                <p className="font-display text-xl font-bold drop-shadow">{director.name}</p>
-                <p className="text-sm text-brand-100 drop-shadow">{director.title}</p>
-              </div>
-            </Tilt3DCard>
+            <img
+              src={directorPhoto}
+              alt={director.name}
+              loading="lazy"
+              decoding="async"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-linear-to-t from-brand-950/70 via-transparent to-transparent" />
+            <div className="absolute bottom-5 left-5 right-5 text-white">
+              <p className="font-display text-lg font-bold drop-shadow">{director.name}</p>
+              <p className="text-xs text-brand-100 drop-shadow">{director.title}</p>
+            </div>
           </motion.div>
 
           <div className="md:col-span-3">
@@ -234,54 +258,71 @@ export default function Home() {
             >
               {director.title} &middot; {director.subtitle}
             </motion.p>
-
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="mt-6 grid grid-cols-3 gap-4"
-            >
-              {[
-                { icon: Award, value: `${director.experienceYears}+`, label: "năm kinh nghiệm hàng không" },
-                { icon: Briefcase, value: director.joined, label: "năm gia nhập AHT" },
-                { icon: CalendarClock, value: director.since, label: "nhậm chức Giám đốc" },
-              ].map((s, i) => (
-                <motion.div
-                  key={s.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.25 + i * 0.1 }}
-                  whileHover={{ y: -4 }}
-                  className="rounded-xl bg-white border border-brand-100 p-4 text-center shadow-sm"
-                >
-                  <s.icon className="mx-auto text-brand-600 mb-1.5" size={20} />
-                  <p className="font-display text-lg font-bold text-brand-900">{s.value}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 leading-tight">{s.label}</p>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-              className="mt-6 text-slate-600 leading-relaxed max-w-prose"
+              className="mt-4 text-slate-600 leading-relaxed max-w-prose line-clamp-3"
             >
               {director.bio}
             </motion.p>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="mt-3 text-slate-600 leading-relaxed max-w-prose"
+              transition={{ delay: 0.3 }}
             >
-              {director.vision}
-            </motion.p>
+              <Link
+                to="/about"
+                className="mt-5 group inline-flex items-center gap-2 text-brand-600 font-semibold hover:text-brand-700 transition-colors"
+              >
+                Xem thêm về tôi
+                <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Contact ── */}
+      <section className="max-w-6xl mx-auto px-6 py-16">
+        <div className="max-w-xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="inline-block px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-semibold tracking-wide uppercase mb-4"
+          >
+            Liên hệ
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="font-display text-2xl md:text-3xl font-bold text-brand-900"
+          >
+            Thông tin liên hệ
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="mt-8 flex flex-col items-center gap-4 text-sm text-slate-500"
+          >
+            <div className="flex items-center gap-3">
+              <Mail size={18} className="text-brand-600 shrink-0" />
+              <a href="mailto:letritrung2605@gmail.com" className="hover:text-brand-700 transition-colors">
+                letritrung2605@gmail.com
+              </a>
+            </div>
+            <div className="flex items-center gap-3">
+              <MapPin size={18} className="text-brand-600 shrink-0" />
+              <span>{meta.company}</span>
+            </div>
+          </motion.div>
         </div>
       </section>
 
