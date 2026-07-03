@@ -19,23 +19,7 @@ const Slide13Roadmap = lazy(() => import("../components/slides/Slide13Roadmap.js
 const Slide14Dashboard = lazy(() => import("../components/slides/Slide14Dashboard.jsx"));
 const Slide15ThankYou = lazy(() => import("../components/slides/Slide15ThankYou.jsx"));
 
-const slides = [
-  Slide01Cover,
-  Slide02Agenda,
-  Slide03Overview,
-  Slide04YoY,
-  Slide05RevenueMix,
-  Slide06RevenueDeepDive,
-  Slide07Trend,
-  Slide08TrendDeepDive,
-  Slide09CostStructure,
-  Slide10CostDetail,
-  Slide11BottlenecksA,
-  Slide12RiskMatrix,
-  Slide13Roadmap,
-  Slide14Dashboard,
-  Slide15ThankYou,
-];
+const TOTAL_SLIDES = 15;
 
 function SlideFallback() {
   return (
@@ -102,7 +86,7 @@ export default function Presentation() {
 
   const scrollToIndex = useCallback((i) => {
     const container = containerRef.current;
-    const clamped = Math.max(0, Math.min(slides.length - 1, i));
+    const clamped = Math.max(0, Math.min(TOTAL_SLIDES - 1, i));
     const wrapper = container?.querySelector(`:scope > [data-slide-index="${clamped}"]`);
     wrapper?.scrollIntoView({ behavior: "smooth", block: "start" });
     setMenuOpen(false);
@@ -145,7 +129,7 @@ export default function Presentation() {
 
       <div className="fixed top-3 right-3 sm:top-5 sm:right-5 z-50 flex items-center gap-1.5 sm:gap-2">
         <div className="px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-white/90 backdrop-blur border border-brand-100 shadow-md text-brand-700 text-[11px] sm:text-xs font-semibold">
-          {active + 1} / {slides.length}
+          {active + 1} / {TOTAL_SLIDES}
         </div>
         <button
           onClick={() => setMenuOpen((v) => !v)}
@@ -215,7 +199,7 @@ export default function Presentation() {
         <button
           onClick={() => scrollToIndex(active + 1)}
           className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white shadow-md border border-brand-100 flex items-center justify-center text-brand-700 hover:bg-brand-50 disabled:opacity-30"
-          disabled={active === slides.length - 1}
+          disabled={active === TOTAL_SLIDES - 1}
           aria-label="Slide sau"
         >
           <ChevronDown size={16} className="sm:hidden" />
@@ -227,17 +211,81 @@ export default function Presentation() {
         ref={containerRef}
         className="w-full h-screen overflow-y-auto scroll-smooth"
       >
-        {slides.map((Slide, i) => (
-          <div key={i} data-slide-index={i}>
-            <Suspense fallback={<SlideFallback />}>
-              <Slide
-                index={i + 1}
-                total={slides.length}
-                onJump={Slide === Slide02Agenda ? handleJump : undefined}
-              />
-            </Suspense>
-          </div>
-        ))}
+        <div data-slide-index={0} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide01Cover index={1} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={1} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide02Agenda index={2} total={TOTAL_SLIDES} onJump={handleJump} />
+          </Suspense>
+        </div>
+        <div data-slide-index={2} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide03Overview index={3} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={3} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide04YoY index={4} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={4} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide05RevenueMix index={5} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={5} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide06RevenueDeepDive index={6} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={6} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide07Trend index={7} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={7} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide08TrendDeepDive index={8} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={8} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide09CostStructure index={9} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={9} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide10CostDetail index={10} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={10} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide11BottlenecksA index={11} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={11} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide12RiskMatrix index={12} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={12} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide13Roadmap index={13} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={13} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide14Dashboard index={14} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
+        <div data-slide-index={14} className="scroll-mt-16">
+          <Suspense fallback={<SlideFallback />}>
+            <Slide15ThankYou index={15} total={TOTAL_SLIDES} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
