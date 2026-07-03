@@ -209,7 +209,7 @@ export default function Presentation() {
 
       <div
         ref={containerRef}
-        className="w-full h-screen overflow-y-auto scroll-smooth"
+        className="w-full h-screen overflow-y-auto overflow-x-hidden scroll-smooth"
       >
         <div data-slide-index={0} className="scroll-mt-16">
           <Suspense fallback={<SlideFallback />}>
